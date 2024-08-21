@@ -1,0 +1,86 @@
+create table student(
+ USN varchar(10) primary key,
+ name varchar(10),
+ BOB varchar(10),
+ Branch varchar(10),
+ M1 int,
+ M2 int,
+ M3 int,
+ Total int,
+ gpa int);
+insert into student values('2AG21MC001','Aditya','10-09-2000','MCA',80,45,60,NULL,NULL);
+insert into student values('2AG21BA005','Manoj','15-10-1998','MBA',90,85,68,NULL,NULL);
+insert into student values('2AG21MC004','Aravind','07-01-2000','MCA',40,35,80,NULL,NULL);
+insert into student values('2AG21CS012','Mithun','10-10-1998','CS',95,85,56,NULL,NULL);
+insert into student values('2AG21CS014','Sagar','20-09-2000','CS',40,65,70,NULL,NULL);
+sqlite> select * from student;
+2AG21MC001|Aditya|10-09-2000|MCA|80|45|60||
+2AG21BA005|Manoj|15-10-1998|MBA|90|85|68||
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80||
+2AG21CS012|Mithun|10-10-1998|CS|95|85|56||
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70||
+DBMS LAB [20MCA21]
+ Page 13
+Query 1: Update the column total by adding the columns mark1, mark2, mark3.
+update student
+ set total=M1+M2+M3;
+sqlite> select * from student;
+2AG21MC001|Aditya|10-09-2000|MCA|80|45|60|185|
+2AG21BA005|Manoj|15-10-1998|MBA|90|85|68|243|
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80|155|
+2AG21CS012|Mithun|10-10-1998|CS|95|85|56|236|
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|
+Query 2:
+ Find the GPA score of all the students.
+update student
+ set gpa=total/3;
+sqlite> select * from student;
+2AG21MC001|Aditya|10-09-2000|MCA|80|45|60|185|61
+2AG21BA005|Manoj|15-10-1998|MBA|90|85|68|243|81
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80|155|51
+2AG21CS012|Mithun|10-10-1998|CS|95|85|56|236|78
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|58
+Query 3:
+ Find the students who born on a particular year of birth from the date_of_birth column.
+ select * from student
+ where BOB like '%2000';
+DBMS LAB [20MCA21]
+ Page 14
+2AG21MC001|Aditya|10-09-2000|MCA|80|45|60|185|61
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80|155|51
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|58
+Query 4:
+List the students who are studying in a particular branch of study.
+select * from student
+where Branch='CS';
+2AG21CS012|Mithun|10-10-1998|CS|95|85|56|236|78
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|58
+Query 5:
+Find the maximum GPA score of the student branch-wise.
+select USN,MAX(gpa)
+from student
+group by Branch;
+2AG21CS012|78
+2AG21BA005|81
+2AG21MC001|61
+DBMS LAB [20MCA21]
+ Page 15
+Query 6:
+ Find the students whose name starts with the alphabet “A”.
+select * from student
+where name like'A%';
+2AG21MC001|Aditya|10-09-2000|MCA|80|45|60|185|61
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80|155|51
+Query 7:
+ Find the students whose name ends with the alphabets “ar”.
+select * from student
+where name like '%ar';
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|58
+Query 8:
+ Delete the student details whose USN is given as 001.
+ delete from student
+where USN like '%001';
+2AG21BA005|Manoj|15-10-1998|MBA|90|85|68|243|81
+2AG21MC004|Aravind|07-01-2000|MCA|40|35|80|155|51
+2AG21CS012|Mithun|10-10-1998|CS|95|85|56|236|78
+2AG21CS014|Sagar|20-09-2000|CS|40|65|70|175|58 
